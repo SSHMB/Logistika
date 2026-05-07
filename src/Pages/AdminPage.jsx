@@ -1,8 +1,24 @@
 ﻿import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../AuthProvider.jsx'
+import Header from '../components/Header'
 
 const AdminPage = () => {
+  const auth = useAuth()
+  const navigate = useNavigate()
+  const [userForm, setUserForm] = useState({ name: '', email: '', password: '', role: 'user' })
+  const [feedback, setFeedback] = useState('')
+
+  const stats = useMemo(
+    () => [
+      { label: 'Total Users', value: auth.users.length },
+      { label: 'Active Properties', value: auth.properties.length },
+      { label: 'User Role', value: auth.user?.role || 'guest' },
+    ],
+    [auth.users.length, auth.properties.length, auth.user],
+  )
+
+  const handleChange = (field) => (event) => {
   const auth = useAuth()
   const navigate = useNavigate()
   const [userForm, setUserForm] = useState({ name: '', email: '', password: '', role: 'user' })
