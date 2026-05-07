@@ -74,7 +74,7 @@ export default defineConfig({
 
               if (exists) {
                 res.statusCode = 400
-                res.end(JSON.stringify({ message: 'Bu email allaqachon ro'yxatdan o'tgan.' }))
+                res.end(JSON.stringify({ message: "Bu email allaqachon ro'yxatdan o'tgan." }))
                 return
               }
 
