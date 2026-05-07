@@ -18,6 +18,7 @@ const Header = () => {
                 <Link to="/home#properties" className="transition hover:text-slate-900">Properties</Link>
                 <Link to="/home#agents" className="transition hover:text-slate-900">Agents</Link>
                 <Link to="/home#blog" className="transition hover:text-slate-900">Blog</Link>
+                <Link to="/realestatepage" className="transition hover:text-slate-900">Real Estate</Link>
                 <Link to="/contact" className="transition hover:text-slate-900">Contact</Link>
                 <Link to="/admin" className="transition hover:text-slate-900">Admin</Link>
             </nav>
