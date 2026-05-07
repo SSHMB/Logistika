@@ -5,7 +5,8 @@ const App = () => {
   return (
     <div>
       <Outlet />
-    </div>
+ <ContactPage />
+     </div>
   )
 }
 
