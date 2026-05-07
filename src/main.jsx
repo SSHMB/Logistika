@@ -11,6 +11,7 @@ import Home from './Pages/Home.jsx'
 import AdminPage from './Pages/AdminPage.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import ContactPage from "./Pages/ContactPage.jsx"
+import RealEstatePage from './Pages/RealEstatePage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: '/contact',
         element: <ContactPage />,
+      },
+      {
+        path: "/realestatepage",
+        element: <RealEstatePage />
       },
       {
         path: 'admin',
