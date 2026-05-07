@@ -1,0 +1,62 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin",
+      "email": "admin@example.com",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": 1778082941505,
+      "name": "Orif",
+      "email": "orif@gmail.com",
+      "password": "orif123",
+      "role": "user"
+    },
+    {
+      "id": 1778135215228,
+      "name": "emirhan",
+      "email": "erta.emirhan.tur@gmail.com",
+      "password": "946187788e",
+      "role": "user"
+    },
+    {
+      "id": 1778135369620,
+      "name": "emirhan",
+      "email": "emirhan@gmail.co  m",
+      "password": "94618788e",
+      "role": "admin"
+    }
+  ],
+  "properties": [
+    {
+      "id": 1,
+      "title": "103/143 West Street",
+      "location": "Crown Nest",
+      "price": "$12,500/mo",
+      "status": "For Rent"
+    },
+    {
+      "id": 2,
+      "title": "105/143 West Street",
+      "location": "Crown Nest",
+      "price": "$18,200/mo",
+      "status": "For Rent"
+    },
+    {
+      "id": 3,
+      "title": "107/143 West Street",
+      "location": "Crown Nest",
+      "price": "$9,200/mo",
+      "status": "For Sale"
+    },
+    {
+      "id": 4,
+      "title": "109/143 West Street",
+      "location": "Crown Nest",
+      "price": "$14,900/mo",
+      "status": "For Sale"
+    }
+  ]
+}

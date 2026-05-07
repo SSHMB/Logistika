@@ -5,29 +5,36 @@ import App from './App.jsx'
 import {
   createBrowserRouter,
   RouterProvider,
-} from "react-router-dom";
-import Login from './Pages/Login.jsx';
-import Home from './Pages/Home.jsx';
+} from 'react-router-dom'
+import Login from './Pages/Login.jsx'
+import Home from './Pages/Home.jsx'
+import AdminPage from './Pages/AdminPage.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     children: [
       {
         index: true,
-        element: <Login />
-
+        element: <Login />,
       },
       {
-        path: "home",
-        element: <Home />
-
+        path: 'home',
+        element: <Home />,
       },
-
-    ]
-  }
-]);
+      {
+        path: 'admin',
+        element: (
+          <ProtectedRoute>
+            <AdminPage />
+          </ProtectedRoute>
+        ),
+      },
+    ],
+  },
+])
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
