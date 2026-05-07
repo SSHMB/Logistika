@@ -10,6 +10,7 @@ import Login from './Pages/Login.jsx'
 import Home from './Pages/Home.jsx'
 import AdminPage from './Pages/AdminPage.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
+import ContactPage from "./Pages/ContactPage.jsx"
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: 'home',
         element: <Home />,
+      },
+      {
+        path: '/contact',
+        element: <ContactPage />,
       },
       {
         path: 'admin',
