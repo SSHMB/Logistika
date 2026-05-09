@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Star,
   MapPin,
@@ -365,7 +365,7 @@ function Footer() {
               { Icon: MessageCircle, label: "Twitter" },
               { Icon: Link, label: "Instagram" },
               { Icon: Play, label: "Youtube" },
-            ].map(({ Icon, label }) => (
+            ].map(({ Icon, label }) => ( // eslint-disable-line no-unused-vars
               <a
                 key={label}
                 href="#"

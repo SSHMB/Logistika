@@ -20,9 +20,9 @@ const Header = () => {
                 <Link to="/admin" className="transition hover:text-slate-900">Admin</Link>
             </nav>
 
-            <button className="hidden rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-100 lg:inline-flex">
+            <Link to="/" className="hidden rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-100 lg:inline-flex">
                 Sign In
-            </button>
+            </Link>
         </header>
     )
 }

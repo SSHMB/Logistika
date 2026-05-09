@@ -1,11 +1,30 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useSearchParams, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import { properties } from '../data/properties'
 import { locations } from '../data/locations'
 import { featuredHouses } from '../data/featuredHouses'
 
 const Home = () => {
+    const [searchParams] = useSearchParams()
+    const navigate = useNavigate()
+    const searchQuery = searchParams.get('search') || ''
+    const [localSearch, setLocalSearch] = useState(searchQuery)
+
+    const filteredProperties = properties.filter(property =>
+        property.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        property.location.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+
+    const filteredLocations = locations.filter(location =>
+        location.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        location.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+
+    const handleSearch = () => {
+        navigate(`?search=${localSearch}`)
+    }
+
     return (
         <div className="min-h-screen bg-slate-50 text-slate-900">
             <Header />
@@ -59,8 +78,13 @@ const Home = () => {
                                     type="text"
                                     placeholder="Search by city, property or neighbourhood"
                                     className="w-full rounded-[1.5rem] border border-slate-200 bg-white px-5 py-4 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100"
+                                    value={localSearch}
+                                    onChange={(e) => setLocalSearch(e.target.value)}
                                 />
-                                <button className="rounded-[1.5rem] bg-sky-600 px-6 py-4 text-sm font-semibold text-white transition hover:bg-sky-700">
+                                <button
+                                    className="rounded-[1.5rem] bg-sky-600 px-6 py-4 text-sm font-semibold text-white transition hover:bg-sky-700"
+                                    onClick={handleSearch}
+                                >
                                     Search
                                 </button>
                             </div>
@@ -93,7 +117,7 @@ const Home = () => {
                             </div>
                             </div>
                         </div>
-                    </div>
+
                 </section>
 
                 <section className="mt-16 grid gap-8 xl:grid-cols-[1.3fr_1fr]">
@@ -185,7 +209,7 @@ const Home = () => {
                         </div>
 
                         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-                            {locations.map((location) => {
+                            {filteredLocations.map((location) => {
                                 const colorMap = {
                                     1: 'bg-slate-900 text-white',
                                     2: 'bg-sky-100 text-sky-700',
@@ -219,7 +243,7 @@ const Home = () => {
                     </div>
 
                     <div className="mt-8 grid gap-6 lg:grid-cols-2">
-                        {properties.map((property) => (
+                        {filteredProperties.map((property) => (
                             <Link key={property.id} to={`/property/${property.id}`} className="group overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white shadow-lg shadow-slate-200/40 transition hover:shadow-xl hover:-translate-y-1">
                                 <div className="h-56 bg-gradient-to-br from-sky-600 via-slate-800 to-slate-900" />
                                 <div className="p-6">
