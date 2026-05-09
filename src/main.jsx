@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
-import {
+import {  
   createBrowserRouter,
   RouterProvider,
 } from 'react-router-dom'
@@ -15,6 +15,7 @@ import RealEstatePage from './Pages/RealEstatePage.jsx'
 import PropertyCard from './Pages/PropertyCard.jsx'
 import LocationDetail from './Pages/LocationDetail.jsx'
 import FeaturedHouseDetail from './Pages/FeaturedHouseDetail.jsx'
+import NotFound from './Pages/NotFound.jsx'
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:"*",
+    element:<NotFound />
+  }
 ])
 
 createRoot(document.getElementById('root')).render(
