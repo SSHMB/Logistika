@@ -1,26 +1,13 @@
 import React from 'react'
-
+import { Outlet } from 'react-router-dom'
+import { AuthProvider } from './AuthProvider.jsx'
+import Navbar from "./navbar.jsx" 
 const App = () => {
   return (
-    <div>
-      <h1>safiya</h1>
-      <h1>Shamsiddin</h1>
-      <h1>Bilol</h1>
-      <h1>mirafzal</h1>
-
-
-
-      <h1>emirhan jonka</h1>
-    </div>
-  )
-
-import Navbar from './Navbar'
-
-function App() {
-  return (
-    <div>
+    <AuthProvider>
       <Navbar />
-    </div>
+      <Outlet />
+    </AuthProvider>
   )
 }
 
