@@ -15,9 +15,6 @@ const Header = () => {
 
             <nav className="hidden items-center gap-8 text-sm font-medium text-slate-700 lg:flex">
                 <Link to="/home#home" className="transition hover:text-slate-900">Home</Link>
-                <Link to="/home#properties" className="transition hover:text-slate-900">Properties</Link>
-                <Link to="/home#agents" className="transition hover:text-slate-900">Agents</Link>
-                <Link to="/home#blog" className="transition hover:text-slate-900">Blog</Link>
                 <Link to="/realestatepage" className="transition hover:text-slate-900">Real Estate</Link>
                 <Link to="/contact" className="transition hover:text-slate-900">Contact</Link>
                 <Link to="/admin" className="transition hover:text-slate-900">Admin</Link>

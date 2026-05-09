@@ -12,6 +12,9 @@ import AdminPage from './Pages/AdminPage.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import ContactPage from "./Pages/ContactPage.jsx"
 import RealEstatePage from './Pages/RealEstatePage.jsx'
+import PropertyCard from './Pages/PropertyCard.jsx'
+import LocationDetail from './Pages/LocationDetail.jsx'
+import FeaturedHouseDetail from './Pages/FeaturedHouseDetail.jsx'
 
 const router = createBrowserRouter([
   {
@@ -33,6 +36,18 @@ const router = createBrowserRouter([
       {
         path: "/realestatepage",
         element: <RealEstatePage />
+      },
+      {
+        path: 'property/:id',
+        element: <PropertyCard />
+      },
+      {
+        path: 'location/:id',
+        element: <LocationDetail />
+      },
+      {
+        path: 'featured-house/:id',
+        element: <FeaturedHouseDetail />
       },
       {
         path: 'admin',
