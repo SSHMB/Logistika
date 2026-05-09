@@ -13,9 +13,8 @@ const App = () => {
       <h1>emirhan jonka</h1>
     </div>
   )
-}
 
-import Navbar from './components/Navbar'
+import Navbar from './Navbar'
 
 function App() {
   return (
