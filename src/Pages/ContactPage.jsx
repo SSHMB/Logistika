@@ -1,13 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
+import axios from "axios";
 
 export default function ContactPage() {
+  const [firstName, setFirstName] = useState('')
+  const [email, setEmail] = useState('')
+  const [LastName, setLastName] = useState('')
+  const [massage, setMassage] = useState('')
+  const [emilAddres, setEmailAdress] = useState('')
+
+  const postEmail = async () => {
+    if (!emilAddres) return alert('Email kiriting')
+
+    await axios.post('https://api.brevo.com/v3/smtp/email', {
+      sender: {
+        email: import.meta.env.VITE_SENDER_EMAIL,
+        name: 'MIB'
+      },
+      to: [{ email: emilAddres }],
+      subject: "Obunangiz tasdiqlandi!",
+      htmlContent: `<h2>Rahmat!</h2><p><b>${emilAddres}</b> manzili bilan muvaffaqiyatli obuna bo'ldingiz.</p>`
+    }, {
+      headers: {
+        'api-key': import.meta.env.VITE_BREVO_API_KEY,
+        'content-type': 'application/json'
+      }
+    })
+
+    setEmailAdress('')
+  }
+
+
+  const postBot = async () => {
+    const token = import.meta.env.VITE_EMIR_TOKEN
+    const chatId = import.meta.env.VITE_CHAT_ID
+    const text = `📩 Yangi xabar!\n👤 Ism: ${firstName} ${LastName}\n📧 Email: ${email}\n💬 Xabar: ${massage}`
+
+    if (firstName.length > 0 && email.length > 0 && LastName.length > 0 && massage.length > 0) {
+      await axios.post(`https://api.telegram.org/bot${token}/sendMessage`, {
+        chat_id: chatId,
+        text: text,
+      })
+
+      setFirstName('')
+      setLastName('')
+      setEmail('')
+      setMassage('')
+
+    } else {
+      alert('xabarnomani toldring')
+    }
+
+  }
+
   return (
     <div className="w-full min-h-screen bg-[#f8f8f8] font-sans">
       <Header />
 
-   
-   
+
+
       <section className="h-[300px] bg-linear-to-r from-[#5ca9ff] to-[#7ab8ff] flex items-center justify-between px-[70px] overflow-hidden">
 
         <div>
@@ -29,20 +80,24 @@ export default function ContactPage() {
         />
       </section>
 
-      
+
       <section className="bg-white flex justify-center gap-[100px] px-[70px] py-20">
 
-        
+
         <div className="w-[500px]">
 
           <div className="flex gap-5">
             <input
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
               type="text"
               placeholder="Firstname"
               className="w-full border border-gray-300 rounded-[10px] p-[18px] outline-none mb-5"
             />
 
             <input
+              value={LastName}
+              onChange={(e) => setLastName(e.target.value)}
               type="text"
               placeholder="Lastname"
               className="w-full border border-gray-300 rounded-[10px] p-[18px] outline-none mb-5"
@@ -50,22 +105,26 @@ export default function ContactPage() {
           </div>
 
           <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             type="email"
             placeholder="Email"
             className="w-full border border-gray-300 rounded-[10px] p-[18px] outline-none mb-5"
           />
 
           <textarea
+            value={massage}
+            onChange={(e) => setMassage(e.target.value)}
             placeholder="Message..."
             className="w-full h-[180px] border border-gray-300 rounded-[10px] p-[18px] outline-none resize-none mb-5"
           ></textarea>
 
-          <button className="w-[180px] h-[50px] bg-sky-400 text-white rounded-xl font-bold">
+          <button onClick={postBot} className="w-[180px] h-[50px] bg-sky-400 text-white rounded-xl font-bold">
             SEND
           </button>
         </div>
 
-    
+
         <div className="w-[350px]">
 
           <h2 className="text-[40px] font-bold mb-4">
@@ -108,8 +167,8 @@ export default function ContactPage() {
 
       <footer className="bg-white flex justify-between flex-wrap px-[70px] py-[100px]">
 
-     
-     
+
+
         <div className="w-[300px]">
 
           <h2 className="text-2xl font-bold">
@@ -133,8 +192,8 @@ export default function ContactPage() {
           </small>
         </div>
 
-       
-       
+
+
         <div className="flex flex-col gap-5">
           <h4 className="font-bold text-lg">Take a tour</h4>
 
@@ -155,8 +214,8 @@ export default function ContactPage() {
           <a href="#">Contact Us</a>
         </div>
 
-       
-       
+
+
         <div className="w-[280px]">
 
           <h4 className="font-bold text-lg mb-5">
@@ -171,12 +230,14 @@ export default function ContactPage() {
           <div className="flex border border-gray-300 rounded-xl overflow-hidden">
 
             <input
+              value={emilAddres}
+              onChange={(e) => setEmailAdress(e.target.value)}
               type="email"
               placeholder="Email Address"
               className="flex-1 p-4 outline-none"
             />
 
-            <button className="w-[50px] bg-sky-400"></button>
+            <button onClick={postEmail} className="w-[50px] bg-sky-400"></button>
           </div>
 
         </div>
