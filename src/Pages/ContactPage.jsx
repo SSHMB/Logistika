@@ -1,38 +1,10 @@
 import React from "react";
+import Header from "../components/Header";
 
 export default function ContactPage() {
   return (
     <div className="w-full min-h-screen bg-[#f8f8f8] font-sans">
-
-   
-      <header className="h-20 bg-white flex items-center justify-between px-[70px]">
-
-        <div>
-          <h2 className="text-2xl font-bold">logoipsum</h2>
-        </div>
-
-        <nav className="flex gap-10">
-          <a href="#" className="text-[13px] tracking-[2px] font-medium">
-            HOME
-          </a>
-
-          <a href="#" className="text-[13px] tracking-[2px] font-medium">
-            PROPERTIES
-          </a>
-
-          <a href="#" className="text-[13px] tracking-[2px] font-medium">
-            AGENTS
-          </a>
-
-          <a href="#" className="text-[13px] tracking-[2px] font-medium">
-            BLOG
-          </a>
-        </nav>
-
-        <button className="px-8 py-3 border-2 border-sky-400 rounded-xl text-sky-400 font-medium">
-          LOG IN
-        </button>
-      </header>
+      <Header />
 
    
    

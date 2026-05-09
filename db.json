@@ -27,6 +27,13 @@
       "email": "emirhan@gmail.co  m",
       "password": "94618788e",
       "role": "admin"
+    },
+    {
+      "id": 1778308026666,
+      "name": "emir",
+      "email": "emirhan@gmail.com",
+      "password": "946187788e",
+      "role": "user"
     }
   ],
   "properties": [

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Star,
   MapPin,
@@ -20,77 +20,7 @@ import {
   Award,
   TrendingUp,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-
-function Navbar() {
-  const [open, setOpen] = useState(false);
-  const links = ["Home", "Properties", "Agents", "Blog"];
-  const navigate = useNavigate()
-
-  const Logout = () => {
-    localStorage.removeItem('logistika_user')
-    navigate('/')
-  }
-
-
-  return (
-    <nav className="sticky top-0 z-50 bg-white shadow-sm">
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <rect width="28" height="28" rx="6" fill="#1A9C6E" />
-            <path d="M7 14L14 7L21 14V22H17V17H11V22H7V14Z" fill="white" />
-          </svg>
-          <span className="font-bold text-gray-800 text-lg tracking-tight">
-            logo<span className="text-emerald-500">ipsum</span>
-          </span>
-        </div>
-
-        <ul className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
-            <li key={l}>
-              <a
-                href="#"
-                className="text-sm font-medium text-gray-600 hover:text-emerald-600 transition-colors"
-              >
-                {l}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <button onClick={Logout} className="hidden md:block text-sm font-semibold text-white bg-emerald-500 hover:bg-emerald-600 transition-colors px-5 py-2 rounded-full">
-          Log In
-        </button>
-
-        <button
-          className="md:hidden text-gray-600"
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X size={22} /> : <Menu size={22} />}
-        </button>
-      </div>
-
-      {open && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-4 pb-4">
-          {links.map((l) => (
-            <a
-              key={l}
-              href="#"
-              className="block py-2 text-sm text-gray-700 hover:text-emerald-600"
-            >
-              {l}
-            </a>
-          ))}
-          <button className="mt-3 w-full text-sm font-semibold text-white bg-emerald-500 px-5 py-2 rounded-full">
-            Log In
-          </button>
-        </div>
-      )}
-    </nav>
-  );
-}
+import Header from "../components/Header";
 
 function AboutHero() {
   return (
@@ -435,7 +365,7 @@ function Footer() {
               { Icon: MessageCircle, label: "Twitter" },
               { Icon: Link, label: "Instagram" },
               { Icon: Play, label: "Youtube" },
-            ].map(({ Icon, label }) => (
+            ].map(({ Icon, label }) => ( // eslint-disable-line no-unused-vars
               <a
                 key={label}
                 href="#"
@@ -503,7 +433,7 @@ function Footer() {
 export default function RealEstatePage() {
   return (
     <div className="min-h-screen font-sans antialiased">
-      <Navbar />
+      <Header />
       <AboutHero />
       <StatsBanner />
       <FeaturesSection />

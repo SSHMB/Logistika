@@ -1,29 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link, useSearchParams, useNavigate } from 'react-router-dom'
+import Header from '../components/Header'
+import { properties } from '../data/properties'
+import { locations } from '../data/locations'
+import { featuredHouses } from '../data/featuredHouses'
 
 const Home = () => {
+    const [searchParams] = useSearchParams()
+    const navigate = useNavigate()
+    const searchQuery = searchParams.get('search') || ''
+    const [localSearch, setLocalSearch] = useState(searchQuery)
+
+    const filteredProperties = properties.filter(property =>
+        property.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        property.location.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+
+    const filteredLocations = locations.filter(location =>
+        location.city.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        location.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+
+    const handleSearch = () => {
+        navigate(`?search=${localSearch}`)
+    }
+
     return (
         <div className="min-h-screen bg-slate-50 text-slate-900">
-            <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-8">
-                <div className="flex items-center gap-2">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-sky-600 text-white shadow-lg shadow-sky-200/50">
-                        L
-                    </div>
-                    <div>
-                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-600">Logistika</p>
-                    </div>
-                </div>
-
-                <nav className="hidden items-center gap-8 text-sm font-medium text-slate-700 lg:flex">
-                    <a href="#home" className="transition hover:text-slate-900">Home</a>
-                    <a href="#properties" className="transition hover:text-slate-900">Properties</a>
-                    <a href="#agents" className="transition hover:text-slate-900">Agents</a>
-                    <a href="#blog" className="transition hover:text-slate-900">Blog</a>
-                </nav>
-
-                <button className="hidden rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-100 lg:inline-flex">
-                    Sign In
-                </button>
-            </header>
+            <Header />
 
             <main className="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
                 <section id="home" className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
@@ -74,8 +78,13 @@ const Home = () => {
                                     type="text"
                                     placeholder="Search by city, property or neighbourhood"
                                     className="w-full rounded-[1.5rem] border border-slate-200 bg-white px-5 py-4 text-sm text-slate-900 outline-none transition focus:border-sky-400 focus:ring-4 focus:ring-sky-100"
+                                    value={localSearch}
+                                    onChange={(e) => setLocalSearch(e.target.value)}
                                 />
-                                <button className="rounded-[1.5rem] bg-sky-600 px-6 py-4 text-sm font-semibold text-white transition hover:bg-sky-700">
+                                <button
+                                    className="rounded-[1.5rem] bg-sky-600 px-6 py-4 text-sm font-semibold text-white transition hover:bg-sky-700"
+                                    onClick={handleSearch}
+                                >
                                     Search
                                 </button>
                             </div>
@@ -93,20 +102,22 @@ const Home = () => {
                                 </p>
                             </div>
 
-                            <div className="grid gap-4 sm:grid-cols-2">
-                                <div className="rounded-[1.75rem] bg-white/10 p-5 shadow-lg shadow-slate-900/25">
-                                    <div className="mb-4 h-40 rounded-3xl bg-slate-300/40" />
-                                    <p className="text-sm font-semibold text-white">Ocean View House</p>
-                                    <p className="mt-2 text-sm text-slate-200">Miami Beach, USA</p>
-                                </div>
-                                <div className="rounded-[1.75rem] bg-white/10 p-5 shadow-lg shadow-slate-900/25">
-                                    <div className="mb-4 h-40 rounded-3xl bg-slate-300/40" />
-                                    <p className="text-sm font-semibold text-white">City Loft</p>
-                                    <p className="mt-2 text-sm text-slate-200">London, UK</p>
-                                </div>
+                            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+                                {featuredHouses.map((house) => (
+                                    <Link
+                                        key={house.id}
+                                        to={`/featured-house/${house.id}`}
+                                        className="group rounded-[1.75rem] bg-white/10 p-5 shadow-lg shadow-slate-900/25 hover:bg-white/20 transition overflow-hidden"
+                                    >
+                                        <div className="mb-4 h-40 rounded-3xl bg-slate-300/40 group-hover:bg-slate-400/50 transition" />
+                                        <p className="text-sm font-semibold text-white group-hover:text-yellow-200 transition">{house.name}</p>
+                                        <p className="mt-2 text-sm text-slate-200 group-hover:text-slate-100 transition">{house.location}</p>
+                                    </Link>
+                                ))}
+                            </div>
                             </div>
                         </div>
-                    </div>
+
                 </section>
 
                 <section className="mt-16 grid gap-8 xl:grid-cols-[1.3fr_1fr]">
@@ -198,21 +209,24 @@ const Home = () => {
                         </div>
 
                         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-                            {[
-                                { title: 'America', label: 'New York', color: 'bg-slate-900 text-white' },
-                                { title: 'Spain', label: 'Barcelona', color: 'bg-sky-100 text-sky-700' },
-                                { title: 'London', label: 'Mayfair', color: 'bg-slate-50 text-slate-900' },
-                                { title: 'France', label: 'Paris', color: 'bg-rose-100 text-rose-700' },
-                            ].map((item) => (
-                                <div key={item.title} className="group overflow-hidden rounded-[2rem] border border-slate-200/80 bg-slate-50 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-                                    <div className={`h-64 ${item.color} flex items-end p-6`}>
-                                        <div>
-                                            <p className="text-sm uppercase tracking-[0.3em] opacity-80">{item.title}</p>
-                                            <p className="mt-4 text-2xl font-semibold leading-tight">{item.label}</p>
+                            {filteredLocations.map((location) => {
+                                const colorMap = {
+                                    1: 'bg-slate-900 text-white',
+                                    2: 'bg-sky-100 text-sky-700',
+                                    3: 'bg-slate-50 text-slate-900',
+                                    4: 'bg-rose-100 text-rose-700'
+                                };
+                                return (
+                                    <Link key={location.id} to={`/location/${location.id}`} className="group overflow-hidden rounded-[2rem] border border-slate-200/80 bg-slate-50 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                                        <div className={`h-64 ${colorMap[location.id]} flex items-end p-6`}>
+                                            <div>
+                                                <p className="text-sm uppercase tracking-[0.3em] opacity-80">{location.title}</p>
+                                                <p className="mt-4 text-2xl font-semibold leading-tight group-hover:underline transition">{location.city}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            ))}
+                                    </Link>
+                                );
+                            })}
                         </div>
                     </div>
                 </section>
@@ -229,38 +243,13 @@ const Home = () => {
                     </div>
 
                     <div className="mt-8 grid gap-6 lg:grid-cols-2">
-                        {[
-                            {
-                                name: '103/143 West Street',
-                                location: 'Crown Nest',
-                                price: '$12,500/mo',
-                                status: 'For Rent',
-                            },
-                            {
-                                name: '105/143 West Street',
-                                location: 'Crown Nest',
-                                price: '$18,200/mo',
-                                status: 'For Rent',
-                            },
-                            {
-                                name: '103/143 West Street',
-                                location: 'Crown Nest',
-                                price: '$9,200/mo',
-                                status: 'For Sale',
-                            },
-                            {
-                                name: '106/143 West Street',
-                                location: 'Crown Nest',
-                                price: '$14,900/mo',
-                                status: 'For Sale',
-                            },
-                        ].map((property, index) => (
-                            <div key={index} className="overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white shadow-lg shadow-slate-200/40">
+                        {filteredProperties.map((property) => (
+                            <Link key={property.id} to={`/property/${property.id}`} className="group overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white shadow-lg shadow-slate-200/40 transition hover:shadow-xl hover:-translate-y-1">
                                 <div className="h-56 bg-gradient-to-br from-sky-600 via-slate-800 to-slate-900" />
                                 <div className="p-6">
                                     <div className="flex items-center justify-between gap-3">
                                         <div>
-                                            <p className="text-lg font-semibold text-slate-900">{property.name}</p>
+                                            <p className="text-lg font-semibold text-slate-900 group-hover:text-sky-700 transition">{property.name}</p>
                                             <p className="mt-2 text-sm text-slate-500">{property.location}</p>
                                         </div>
                                         <span className="rounded-full bg-sky-100 px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-sky-700">
@@ -269,7 +258,7 @@ const Home = () => {
                                     </div>
                                     <p className="mt-5 text-2xl font-semibold text-slate-900">{property.price}</p>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </section>

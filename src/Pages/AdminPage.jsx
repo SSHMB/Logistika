@@ -1,6 +1,7 @@
 ﻿import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../AuthProvider.jsx'
+import Header from '../components/Header'
 
 const AdminPage = () => {
   const auth = useAuth()
@@ -16,6 +17,7 @@ const AdminPage = () => {
     ],
     [auth.users.length, auth.properties.length, auth.user],
   )
+
 
   const handleChange = (field) => (event) => {
     const value = event.target.value
@@ -48,6 +50,7 @@ const AdminPage = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 text-slate-900">
+      <Header />
       <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
         <header className="mb-10 flex flex-col gap-6 rounded-[2rem] bg-gradient-to-r from-sky-600 via-cyan-600 to-slate-900 p-8 text-white shadow-2xl shadow-slate-400/20 sm:flex-row sm:items-center sm:justify-between">
           <div>
